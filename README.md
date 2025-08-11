@@ -4,6 +4,8 @@ This repo contains a collection of physics and RL simulations created to explore
 
 We believe this is an important concept in the future of game engines and physics simulations as the environments become easier to create--and these environments are more an composition of well-designed independent concepts.
 
+Based on https://github.com/eagonmeng/sync-blank and the Essence of Software book: https://essenceofsoftware.com/ 
+
 Part of 10 Aug 25 Sundai Hack: https://www.sundai.club/ 
 
 ## Considerations
