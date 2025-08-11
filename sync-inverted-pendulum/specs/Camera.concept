@@ -1,0 +1,58 @@
+<concept_spec>
+
+concept Camera
+
+purpose
+    to control the 3D view perspective and focus in the simulation
+
+state
+    a set of Cameras with
+        a position Vector3
+        a target Vector3
+        a up Vector3
+        a fov Float
+        a zoom Float
+        a focused_body Bodies
+
+actions
+    create (camera: Cameras, position: Vector3, target: Vector3) : (camera: Cameras)
+        create a new camera with initial position and target
+        set up vector to [0, 1, 0]
+        set fov to 60 degrees
+        set zoom to 1.0
+        return the camera reference
+    
+    pan (camera: Cameras, delta: Vector3) : (camera: Cameras)
+        translate camera position by delta
+        maintain relative target position
+        return the camera reference
+    
+    rotate (camera: Cameras, theta: Float, phi: Float) : (camera: Cameras)
+        rotate camera around target by spherical angles
+        update position while keeping target fixed
+        return the camera reference
+    
+    zoom_in (camera: Cameras, factor: Float) : (camera: Cameras)
+        decrease distance to target by factor
+        update zoom level
+        return the camera reference
+    
+    zoom_out (camera: Cameras, factor: Float) : (camera: Cameras)
+        increase distance to target by factor
+        update zoom level
+        return the camera reference
+    
+    focus_on (camera: Cameras, body: Bodies) : (camera: Cameras)
+        set focused_body to specified body
+        animate camera to frame the body
+        return the camera reference
+    
+    get_view_matrix (camera: Cameras) : (position: Vector3, target: Vector3, up: Vector3)
+        return current view parameters
+
+operational principle
+    after create (camera: c, position: [0, 0, 100], target: [0, 0, 0]) : (camera: c)
+    and focus_on (camera: c, body: earth) : (camera: c)
+    then the camera target follows Earth's position
+
+</concept_spec>

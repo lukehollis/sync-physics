@@ -1,0 +1,61 @@
+<concept_spec>
+
+concept Physics
+
+purpose 
+    to manage the physics simulation world and step physics calculations
+
+state
+    a World with
+        a gravity Vector3
+        a timeStep Number
+        a maxSubSteps Number
+    a set of RigidBodies with
+        a shape String
+        a mass Number  
+        a position Vector3
+        a rotation Quaternion
+    a set of SoftBodies with
+        a mesh String
+        a mass Number
+        a position Vector3
+
+actions
+    initialize (gravity: Vector3) : (world: World)
+        create physics world with specified gravity
+        set default timestep and substeps
+        return world reference
+    
+    createRigidBody (body: RigidBodies, shape: String, mass: Number, position: Vector3, rotation: Quaternion) : (body: RigidBodies)
+        create rigid body with specified shape and properties
+        add to physics world
+        return body reference
+    
+    createSoftBody (body: SoftBodies, mesh: String, mass: Number, position: Vector3) : (body: SoftBodies)
+        create soft body from mesh data
+        configure soft body properties
+        add to physics world
+        return body reference
+    
+    step () : (world: World)
+        advance physics simulation by timestep
+        update all body positions and rotations
+        return world reference
+    
+    applyForce (body: RigidBodies, force: Vector3) : (body: RigidBodies)
+        apply force to specified rigid body
+        return body reference
+    
+    removeBody (body: RigidBodies) : ()
+        remove body from physics world
+    
+    removeBody (body: SoftBodies) : ()
+        remove soft body from physics world
+
+operational principle
+    after initialize (gravity: {x: 0, y: -9.8, z: 0}) : (world: w) 
+    and createRigidBody (shape: "sphere", mass: 1, position: {x: 0, y: 10, z: 0}) : (body: b)
+    and step () repeatedly
+    the body b will fall due to gravity
+
+</concept_spec>

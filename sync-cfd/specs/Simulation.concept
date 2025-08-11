@@ -1,0 +1,55 @@
+<concept_spec>
+
+concept Simulation
+
+purpose
+    to control the flow of time and manage simulation state
+
+state
+    a set of Simulations with
+        a current_time Float
+        a time_scale Float
+        a is_playing Boolean
+        a start_time Float
+        a end_time Float
+
+actions
+    create (sim: Simulations, start_time: Float, end_time: Float) : (sim: Simulations)
+        create a new simulation instance
+        set current_time to start_time
+        set time_scale to 1.0
+        set is_playing to false
+        return the simulation reference
+    
+    play (sim: Simulations) : (sim: Simulations)
+        set is_playing to true
+        return the simulation reference
+    
+    pause (sim: Simulations) : (sim: Simulations)
+        set is_playing to false
+        return the simulation reference
+    
+    set_speed (sim: Simulations, scale: Float) : (sim: Simulations)
+        update the time_scale multiplier
+        return the simulation reference
+    
+    advance (sim: Simulations, delta: Float) : (sim: Simulations, current_time: Float)
+        if is_playing, increment current_time by delta * time_scale
+        ensure current_time doesn't exceed end_time
+        return simulation reference and new time
+    
+    jump_to (sim: Simulations, time: Float) : (sim: Simulations)
+        set current_time to specified time
+        ensure time is within start_time and end_time bounds
+        return the simulation reference
+    
+    get_time (sim: Simulations) : (time: Float, scale: Float, is_playing: Boolean)
+        return current time, scale, and playing state
+
+operational principle
+    after create (sim: s, start_time: 0, end_time: 3600) : (sim: s)
+    and play (sim: s) : (sim: s)
+    and advance (sim: s, delta: 1.0) : (sim: s, current_time: t)
+    then t equals 1.0 (assuming time_scale is 1.0)
+
+</concept_spec>

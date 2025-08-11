@@ -1,0 +1,43 @@
+<concept_spec>
+
+concept Entity
+
+purpose 
+    to manage dynamic objects that interact with the simulation
+
+state
+    a set of Objects with
+        a type String
+        a position Vector3
+        a velocity Vector3
+        a mass Number
+        a radius Number
+        a mesh Meshes
+        a body RigidBodies
+
+actions
+    createProjectile (object: Objects, position: Vector3, velocity: Vector3, radius: Number, mass: Number) : (object: Objects)
+        create projectile object with initial velocity
+        store object properties
+        return object reference
+    
+    update (object: Objects, position: Vector3, rotation: Quaternion) : (object: Objects)
+        update object position and rotation from physics
+        return object reference
+    
+    remove (object: Objects) : ()
+        mark object for removal
+    
+    getAll () : (objects: Array)
+        return all active objects
+    
+    cleanup () : (count: Number)
+        remove objects that have fallen below threshold
+        return number of objects removed
+
+operational principle
+    after createProjectile (position: {x: 0, y: 10, z: -10}, velocity: {x: 0, y: 0, z: 10}, radius: 0.5, mass: 0.1) : (object: o)
+    and update (object: o, position: {x: 0, y: 9, z: -5})
+    the projectile o moves from initial position towards target with physics
+
+</concept_spec>

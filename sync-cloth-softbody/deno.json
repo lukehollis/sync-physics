@@ -1,0 +1,18 @@
+{
+  "tasks": {
+    "dev": "deno run --allow-read --allow-write --allow-net --watch main.ts",
+    "build": "deno bundle main.ts main.js",
+    "serve": "deno run --allow-net --allow-read https://deno.land/std@0.208.0/http/file_server.ts ."
+  },
+  "compilerOptions": {
+    "lib": ["deno.window", "dom"],
+    "jsx": "react",
+    "jsxFactory": "React.createElement",
+    "jsxFragmentFactory": "React.Fragment"
+  },
+  "imports": {
+    "npm:three": "https://esm.sh/three@0.160.0",
+    "npm:three/": "https://esm.sh/three@0.160.0/",
+    "npm:@types/three": "https://esm.sh/@types/three@0.160.0"
+  }
+}

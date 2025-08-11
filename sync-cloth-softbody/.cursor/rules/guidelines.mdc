@@ -1,0 +1,53 @@
+---
+alwaysApply: true
+---
+
+General:
+
+- You are encouraged to work with the application in phases, as each piece is
+  modular: concept specs contain sufficient context to (re)generate independent
+  implementations, and synchronizations can be generated without knowledge of
+  concept implementation details, and refer solely to action signatures in their
+  specification.
+- You should not need to inspect inside the `engine/` folder unless specifically
+  to debug a tricky issue or if you generate behavior that does not align with
+  expectations according to your understanding of the concept + synchronization
+  structure, and can prove so with tests.
+
+Concept implementations should:
+
+- Never import one another, and should run fully independently.
+- Be able to be tested individually, and carry a canonical test modeled after
+  their "operational principle".
+- Maintain a 1-1 correspondence with their specifications located in `specs/`.
+  If there are concept specs found without a corresponding implementation, you
+  should first generate and test an implementation.
+
+Synchronizations should:
+
+- Be written concisely, with direct reference to the concept action, such as
+  `User.register` as the first argument in the `actions` pattern lists.
+- Typing should work after concepts are instrumented, and the baseline concept
+  `User` is an instance that has been `instrument`ed.
+- Use `.query` on `frames: Frames` in the `where` clause function as much as
+  possible to maintain readibility and clarity. When new bindings are provided
+  by `query`, the typing should update to the next chained method's version of
+  `Frames`.
+- Only query functions can be used with `.query`, meaning that they start with
+  an underscore `_`.
+- For usage of `.query`, remember that the third parameter, the output pattern,
+  will almost always expect to have a variable (deconstructed from `Vars`)
+  symbol object as the value. This allows the query to hydrate the frame with
+  that key, and types will work if you respect this pattern.
+- All indexing on frame objects in the `where` should only index by a var
+  declared in the synchronization function inputs, and thus look something like
+  `$[user]`, and not `$.user` since that is a string key.
+- Use standard `Array` functions over manual `for` iteration, and maintain a
+  functional-style approach for readibility.
+- `when` patterns are currently flat, meaning that you should not pattern match
+  with nested objects, and instead flatten out parameters and bind them with the
+  vars available.
+- This is also true for `then` patterns, meaning that you should transform,
+  format, and bind any desired output in the `where` clause to the appropriate
+  variable on the frame, and have simple usage of these declared variables in
+  the output parameters.

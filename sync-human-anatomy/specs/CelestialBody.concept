@@ -1,0 +1,51 @@
+<concept_spec>
+
+concept CelestialBody
+
+purpose
+    to represent and track the state of celestial objects in the solar system
+
+state
+    a set of Bodies with
+        a name String
+        a mass Float
+        a radius Float
+        a position Vector3
+        a velocity Vector3
+        a orbit_radius Float
+        a orbit_period Float
+        a color String
+        a parent Bodies
+        a type String
+
+actions
+    create (body: Bodies, name: String, mass: Float, radius: Float, position: Vector3, velocity: Vector3, orbit_radius: Float, orbit_period: Float, color: String, parent: Bodies, type: String) : (body: Bodies)
+        create a new celestial body with the specified properties
+        associate all properties with the body
+        return the body reference
+    
+    update_position (body: Bodies, position: Vector3) : (body: Bodies)
+        update the position of the specified body
+        return the body reference
+    
+    update_velocity (body: Bodies, velocity: Vector3) : (body: Bodies)
+        update the velocity of the specified body
+        return the body reference
+    
+    get_state (body: Bodies) : (position: Vector3, velocity: Vector3, mass: Float)
+        retrieve the current state vector of the body
+        return position, velocity, and mass
+    
+    get_by_name (name: String) : (body: Bodies)
+        find a body by its name
+        return the body reference
+    get_by_name (name: String) : (error: String)
+        if no body with that name exists
+        return error message
+
+operational principle
+    after create (body: earth, name: "Earth", ...) : (body: earth)
+    and update_position (body: earth, position: [new_x, new_y, new_z]) : (body: earth)
+    then get_state (body: earth) returns the updated position
+
+</concept_spec>

@@ -1,0 +1,26 @@
+# Orbit Engine Test Requirements
+
+# Core dependencies
+numpy>=1.21.0
+scipy>=1.7.0
+matplotlib>=3.4.0
+
+# Testing frameworks
+pytest>=7.0.0
+pytest-cov>=3.0.0
+pytest-benchmark>=3.4.1
+
+# Performance monitoring
+psutil>=5.9.0
+
+# For JPL Horizons validation (optional)
+# astroquery>=0.4.6
+
+# For mock data generation
+faker>=18.0.0
+
+# Threading and async support
+aiofiles>=23.0.0
+
+# Data validation
+jsonschema>=4.0.0

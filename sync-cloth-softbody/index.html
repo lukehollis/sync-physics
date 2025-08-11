@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloth Simulation - Soft Body Physics</title>
+    <link rel="icon" href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="container"></div>
+    
+    <div id="controls">
+        <h2>Cloth Simulation Controls</h2>
+        <div class="control-group">
+            <h3>🖱️ Mouse Controls</h3>
+            <p><strong>Click & Drag:</strong> Grab and pull the cloth</p>
+            <p><strong>Orbit:</strong> Right-click and drag to rotate view</p>
+            <p><strong>Zoom:</strong> Scroll to zoom in/out</p>
+        </div>
+        <div class="control-group">
+            <h3>⌨️ Keyboard Controls</h3>
+            <p><strong>Space:</strong> Shoot projectile at cloth</p>
+        </div>
+        <div class="control-group">
+            <h3>📊 Simulation Info</h3>
+            <p id="fps">FPS: <span>0</span></p>
+            <p id="objects">Objects: <span>0</span></p>
+        </div>
+    </div>
+
+    <!-- Load Ammo.js physics engine -->
+    <script src="https://cdn.jsdelivr.net/gh/kripken/ammo.js@HEAD/builds/ammo.js"></script>
+    
+    <!-- Load Three.js -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/examples/jsm/controls/OrbitControls": "https://unpkg.com/three@0.160.0/examples/jsm/controls/OrbitControls.js"
+        }
+    }
+    </script>
+    
+    <!-- Load main application -->
+    <script type="module" src="main.js"></script>
+</body>
+</html>

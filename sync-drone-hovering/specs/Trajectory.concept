@@ -1,0 +1,55 @@
+<concept_spec>
+
+concept Trajectory  
+
+purpose
+    to calculate and manage interplanetary transfer trajectories
+
+state
+    a set of Trajectories with
+        a departure_body Bodies
+        a arrival_body Bodies  
+        a departure_time Float
+        a arrival_time Float
+        a delta_v Float
+        a c3_energy Float
+        a path Array
+        a is_active Boolean
+
+actions
+    calculate (traj: Trajectories, departure: Bodies, arrival: Bodies, departure_window_start: Float, departure_window_end: Float) : (traj: Trajectories, solutions: Array)
+        calculate optimal transfer trajectories within the departure window
+        compute delta-v and C3 energy requirements for each solution
+        generate porkchop plot data
+        return trajectory reference and array of solutions
+    
+    select (traj: Trajectories, departure_time: Float, arrival_time: Float) : (traj: Trajectories)
+        select a specific trajectory from calculated solutions
+        set departure and arrival times
+        compute the full transfer path
+        return the trajectory reference
+    
+    get_position_at (traj: Trajectories, time: Float) : (position: Vector3)
+        interpolate position along the trajectory at given time
+        return the position vector
+    get_position_at (traj: Trajectories, time: Float) : (error: String)
+        if time is outside trajectory bounds
+        return error message
+    
+    get_metrics (traj: Trajectories) : (delta_v: Float, c3: Float, duration: Float)
+        return trajectory performance metrics
+    
+    activate (traj: Trajectories) : (traj: Trajectories)
+        set is_active to true
+        return the trajectory reference
+    
+    deactivate (traj: Trajectories) : (traj: Trajectories)
+        set is_active to false
+        return the trajectory reference
+
+operational principle
+    after calculate (traj: t, departure: earth, arrival: mars, ...) : (traj: t, solutions: s)
+    and select (traj: t, departure_time: t1, arrival_time: t2) : (traj: t)
+    then get_position_at (traj: t, time: t1) returns Earth's position at t1
+
+</concept_spec>

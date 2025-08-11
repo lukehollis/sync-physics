@@ -1,0 +1,75 @@
+<concept_spec>
+
+concept Scene
+
+purpose 
+    to manage the three.js rendering scene, camera, and visual objects
+
+state
+    a Scene with
+        a backgroundColor Number
+        a ambientIntensity Number
+        a directionalIntensity Number
+    a Camera with
+        a position Vector3
+        a target Vector3
+        a fov Number
+    a set of Meshes with
+        a geometry String
+        a material String
+        a position Vector3
+        a rotation Quaternion
+        a vertices Array
+    a set of Lights with
+        a type String
+        a color Number
+        a intensity Number
+        a position Vector3
+
+actions
+    initialize (width: Number, height: Number) : (scene: Scene, camera: Camera)
+        create three.js scene and renderer
+        setup camera with perspective projection
+        configure rendering settings
+        return scene and camera references
+    
+    addLight (light: Lights, type: String, color: Number, intensity: Number, position: Vector3) : (light: Lights)
+        create light of specified type
+        add to scene
+        return light reference
+    
+    createMesh (mesh: Meshes, geometry: String, material: String, position: Vector3) : (mesh: Meshes)
+        create mesh with geometry and material
+        set initial position
+        add to scene
+        return mesh reference
+    
+    updateMesh (mesh: Meshes, vertices: Array) : (mesh: Meshes)
+        update mesh vertex positions
+        mark geometry for update
+        return mesh reference
+    
+    removeMesh (mesh: Meshes) : ()
+        remove mesh from scene
+    
+    render () : (scene: Scene)
+        render current frame
+        return scene reference
+    
+    setCameraPosition (camera: Camera, position: Vector3, target: Vector3) : (camera: Camera)
+        update camera position and look-at target
+        return camera reference
+    
+    resize (width: Number, height: Number) : (scene: Scene)
+        update renderer size
+        adjust camera aspect ratio
+        return scene reference
+
+operational principle
+    after initialize (width: 800, height: 600) : (scene: s, camera: c)
+    and addLight (type: "ambient", intensity: 0.5) : (light: l1)
+    and createMesh (geometry: "sphere", material: "standard", position: {x: 0, y: 0, z: 0}) : (mesh: m)
+    and render ()
+    a sphere is visible in the rendered scene
+
+</concept_spec>

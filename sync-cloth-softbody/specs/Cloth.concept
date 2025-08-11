@@ -1,0 +1,68 @@
+<concept_spec>
+
+concept Cloth
+
+purpose 
+    to manage soft-body cloth simulation with configurable properties and constraints
+
+state
+    a set of Cloths with
+        a width Number
+        a height Number
+        a segmentsX Number
+        a segmentsY Number
+        a mass Number
+        a position Vector3
+        a vertices Array
+        a indices Array
+    a set of Anchors with
+        a cloth Cloths
+        a vertexIndex Number
+        a position Vector3
+    a set of Links with
+        a cloth Cloths
+        a vertex1 Number
+        a vertex2 Number
+        a initialDistance Number
+        a broken Boolean
+
+actions
+    create (cloth: Cloths, width: Number, height: Number, segmentsX: Number, segmentsY: Number, mass: Number, position: Vector3) : (cloth: Cloths, vertices: Array, indices: Array)
+        generate cloth mesh with specified dimensions and segments
+        calculate vertex positions and face indices
+        return cloth reference and mesh data
+    
+    anchorVertex (anchor: Anchors, cloth: Cloths, vertexIndex: Number, position: Vector3) : (anchor: Anchors)
+        fix specified vertex at given position
+        create anchor constraint
+        return anchor reference
+    
+    releaseAnchor (anchor: Anchors) : ()
+        remove anchor constraint
+        allow vertex to move freely
+    
+    updateVertices (cloth: Cloths, vertices: Array) : (cloth: Cloths)
+        update cloth vertex positions from physics simulation
+        return cloth reference
+    
+    getStress (cloth: Cloths, vertex1: Number, vertex2: Number) : (stress: Number)
+        calculate stress between two vertices
+        compare current distance to initial distance
+        return stress value
+    
+    tearLink (link: Links, cloth: Cloths, vertex1: Number, vertex2: Number) : (link: Links)
+        mark link between vertices as broken
+        prevent further constraint between vertices
+        return link reference
+    
+    pickVertex (cloth: Cloths, position: Vector3) : (vertexIndex: Number)
+        find closest vertex to given position
+        return vertex index
+
+operational principle
+    after create (width: 10, height: 10, segmentsX: 20, segmentsY: 20) : (cloth: c, vertices: v)
+    and anchorVertex (cloth: c, vertexIndex: 0, position: {x: -5, y: 5, z: 0}) : (anchor: a1)
+    and anchorVertex (cloth: c, vertexIndex: 19, position: {x: 5, y: 5, z: 0}) : (anchor: a2)
+    the cloth c hangs from two top corners while rest drapes naturally
+
+</concept_spec>

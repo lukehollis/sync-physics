@@ -1,0 +1,59 @@
+<concept_spec>
+
+concept Mission
+
+purpose
+    to manage spacecraft missions and their execution
+
+state
+    a set of Missions with
+        a spacecraft Bodies
+        a trajectory Trajectories
+        a launch_date Float
+        a status String
+        a elapsed_time Float
+        a current_position Vector3
+        a current_velocity Vector3
+
+actions
+    create (mission: Missions, spacecraft: Bodies, trajectory: Trajectories, launch_date: Float) : (mission: Missions)
+        create a new mission with spacecraft and trajectory
+        set status to "planned"
+        set elapsed_time to 0
+        return the mission reference
+    
+    launch (mission: Missions) : (mission: Missions)
+        set status to "active"
+        activate the associated trajectory
+        initialize spacecraft position and velocity
+        return the mission reference
+    launch (mission: Missions) : (error: String)
+        if mission is already launched or completed
+        return error message
+    
+    update (mission: Missions, current_time: Float) : (mission: Missions, position: Vector3, velocity: Vector3)
+        calculate elapsed_time from launch_date
+        query trajectory for current position and velocity
+        update spacecraft state
+        return mission reference and state vectors
+    
+    complete (mission: Missions) : (mission: Missions)
+        set status to "completed"
+        deactivate trajectory
+        return the mission reference
+    
+    abort (mission: Missions) : (mission: Missions)
+        set status to "aborted"
+        deactivate trajectory
+        return the mission reference
+    
+    get_status (mission: Missions) : (status: String, elapsed: Float, position: Vector3)
+        return current mission status and state
+
+operational principle
+    after create (mission: m, spacecraft: s, trajectory: t, launch_date: d) : (mission: m)
+    and launch (mission: m) : (mission: m)
+    and update (mission: m, current_time: d + 100) : (mission: m, position: p, velocity: v)
+    then elapsed_time equals 100 and position reflects trajectory at that time
+
+</concept_spec>

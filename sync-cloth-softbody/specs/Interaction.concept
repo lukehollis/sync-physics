@@ -1,0 +1,68 @@
+<concept_spec>
+
+concept Interaction
+
+purpose 
+    to handle user input for interacting with the simulation
+
+state
+    a set of MouseEvents with
+        a type String
+        a position Vector2
+        a button Number
+    a set of KeyEvents with  
+        a type String
+        a key String
+    a set of Drags with
+        a active Boolean
+        a startPosition Vector2
+        a currentPosition Vector2
+        a target String
+
+actions
+    mouseDown (event: MouseEvents, position: Vector2, button: Number) : (event: MouseEvents)
+        register mouse down event at position
+        return event reference
+    
+    mouseMove (event: MouseEvents, position: Vector2) : (event: MouseEvents)  
+        register mouse move event at position
+        return event reference
+    
+    mouseUp (event: MouseEvents, position: Vector2, button: Number) : (event: MouseEvents)
+        register mouse up event at position
+        return event reference
+    
+    keyDown (event: KeyEvents, key: String) : (event: KeyEvents)
+        register key down event
+        return event reference
+    
+    keyUp (event: KeyEvents, key: String) : (event: KeyEvents)
+        register key up event  
+        return event reference
+    
+    startDrag (drag: Drags, position: Vector2, target: String) : (drag: Drags)
+        initiate drag operation
+        store start position and target
+        return drag reference
+    
+    updateDrag (drag: Drags, position: Vector2) : (drag: Drags)
+        update current drag position
+        return drag reference
+    
+    endDrag (drag: Drags) : ()
+        terminate drag operation
+    
+    getRaycast (position: Vector2) : (origin: Vector3, direction: Vector3)
+        convert screen position to 3D ray
+        return ray origin and direction
+
+operational principle
+    after mouseDown (position: {x: 100, y: 200}, button: 0) : (event: e1)
+    and startDrag (position: {x: 100, y: 200}, target: "cloth") : (drag: d)
+    and mouseMove (position: {x: 150, y: 250}) : (event: e2)
+    and updateDrag (drag: d, position: {x: 150, y: 250})
+    and mouseUp (position: {x: 150, y: 250}) : (event: e3)
+    and endDrag (drag: d)
+    the user has dragged from (100,200) to (150,250)
+
+</concept_spec>
